@@ -117,11 +117,11 @@ endif
 
 ifeq ($(USE_PMDK),yes)
 	DEPENDENCY_TARGETS+= pmdk
-	FINAL_CFLAGS+= -I../deps/pmdk/src/include -I../deps/pmdk/src/libpmemobj -I../deps/pmdk/src/common -DUSE_PMDK
+	FINAL_CFLAGS+= -I../deps/pmdk/src/include -I../deps/pmdk/src/libpmemobj -I../deps/pmdk/src/common -I../deps/pmdk/src/core -DUSE_PMDK
 ifeq ($(NVML_DEBUG),yes)
-	FINAL_LIBS+= ../deps/pmdk/src/debug/libpmemobj.so ../deps/pmdk/src/debug/libpmem.so
+	FINAL_LIBS+= ../deps/pmdk/src/debug/libpmemobj.so
 else
-	FINAL_LIBS+= ../deps/pmdk/src/nondebug/libpmemobj.so ../deps/pmdk/src/nondebug/libpmem.so
+	FINAL_LIBS+= ../deps/pmdk/src/nondebug/libpmemobj.so
 endif
 	FINAL_LIBS+= -ldl
 endif

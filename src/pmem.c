@@ -33,7 +33,7 @@
 #include "lane.h"
 #include "myutil.h"
 #include "out.h"
-#include "redo.h"
+// #include "redo.h"
 #include "memops.h"
 #include "pmalloc.h"
 #include "list.h"
