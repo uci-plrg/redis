@@ -59,7 +59,7 @@ uint64_t pm_type_root_type_id;
 uint64_t pm_type_key_val_pair_PM;
 uint64_t pm_type_sds_type_id;
 uint64_t pm_type_emb_sds_type_id;
-
+void jaaru_enable_simulating_crash(void);
 /* Our shared "common" objects */
 
 struct sharedObjectsStruct shared;
@@ -478,6 +478,7 @@ void dictObjectDestructorPM(void *privdata, void *val)
 
     if (val == NULL)
         return; /* Lazy freeing will set value to NULL. */
+    serverLog(LL_NOTICE,"LOG ===> dictObjectDestructorPM\n");
 
     TX_BEGIN(server.pm_pool) {
         decrRefCountPM(val);
@@ -500,6 +501,7 @@ void dictSdsDestructorPM(void *privdata, void *val)
     PMEMoid *kv_PM_oid;
 
     DICT_NOTUSED(privdata);
+    serverLog(LL_NOTICE,"LOG ===> dictSdsDestructorPM\n");
 
     TX_BEGIN(server.pm_pool) {
         kv_PM_oid = sdsPMEMoidBackReference(val);
@@ -2750,7 +2752,7 @@ void pingCommand(client *c) {
             c->cmd->name);
         return;
     }
-
+    jaaru_enable_simulating_crash();
     if (c->flags & CLIENT_PUBSUB) {
         addReply(c,shared.mbulkhdr[2]);
         addReplyBulkCBuffer(c,"pong",4);

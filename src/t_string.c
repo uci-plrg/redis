@@ -89,6 +89,7 @@ void setGenericCommand(client *c, int flags, robj *key, robj *val, robj *expire,
 #ifdef USE_PMDK
     if (server.persistent) {
         int error = 0;
+        serverLog(LL_NOTICE,"LOG ===> setGenericCommand\n");
 
         /* Copy value from RAM to PM - create RedisObject and sds(value) */
         TX_BEGIN(server.pm_pool) {

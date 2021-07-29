@@ -46,6 +46,7 @@ pmemReconstruct(void)
 {
     TOID(struct redis_pmem_root) root;
     TOID(struct key_val_pair_PM) kv_PM_oid;
+    serverLog(LL_NOTICE,"LOG ===> pmemReconstruct\n");
     struct key_val_pair_PM *kv_PM;
     dict *d;
     void *key;
@@ -71,6 +72,7 @@ void pmemKVpairSet(void *key, void *val)
     PMEMoid *kv_PM_oid;
     PMEMoid val_oid;
     struct key_val_pair_PM *kv_PM_p;
+    serverLog(LL_NOTICE,"LOG ===> pmemKVpairSet\n");
 
     kv_PM_oid = sdsPMEMoidBackReference((sds)key);
     kv_PM_p = (struct key_val_pair_PM *)pmemobj_direct(*kv_PM_oid);
@@ -92,6 +94,7 @@ pmemAddToPmemList(void *key, void *val)
     struct key_val_pair_PM *kv_PM_p;
     TOID(struct key_val_pair_PM) typed_kv_PM;
     struct redis_pmem_root *root;
+    serverLog(LL_NOTICE,"LOG ===> pmemAddToPmemList\n");
 
     key_oid.pool_uuid_lo = server.pool_uuid_lo;
     key_oid.off = (uint64_t)key - (uint64_t)server.pm_pool->addr;
@@ -126,6 +129,7 @@ pmemRemoveFromPmemList(PMEMoid kv_PM_oid)
 {
     TOID(struct key_val_pair_PM) typed_kv_PM;
     struct redis_pmem_root *root;
+    serverLog(LL_NOTICE,"LOG ===> pmemRemoveFromPmemList\n");
 
     root = pmemobj_direct(server.pm_rootoid.oid);
 
